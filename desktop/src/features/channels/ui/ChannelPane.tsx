@@ -714,7 +714,7 @@ export const ChannelPane = React.memo(function ChannelPane({
                             : activeChannel
                               ? activeChannel.channelType === "dm" &&
                                 directMessageIntro
-                                ? `Message ${directMessageIntro.displayName}`
+                                ? `Nhắn tin cho ${directMessageIntro.displayName}`
                                 : `Message #${activeChannel.name}`
                               : "Select a channel"
                   }

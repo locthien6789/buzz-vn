@@ -79,7 +79,7 @@ function UnreadCountBadge({
       data-testid={`channel-unread-${channelName}`}
     >
       {formatUnreadCount(count)}
-      <span className="sr-only"> new comment{count === 1 ? "" : "s"}</span>
+      <span className="sr-only"> bình luận mới</span>
     </span>
   );
 }
@@ -96,13 +96,13 @@ function UnreadDotBadge({
       className={cn("h-2 w-2 shrink-0 rounded-full bg-primary", className)}
       data-testid={`channel-unread-dot-${channelName}`}
     >
-      <span className="sr-only">unread</span>
+      <span className="sr-only">chưa đọc</span>
     </span>
   );
 }
 
 function formatAgentCount(count: number) {
-  return `${count} ${count === 1 ? "agent" : "agents"}`;
+  return `${count} trợ lý`;
 }
 
 export function formatWorkingTooltip(
@@ -111,15 +111,15 @@ export function formatWorkingTooltip(
   const leadName = summary.agentNames?.[0];
 
   if (!leadName) {
-    return `${formatAgentCount(summary.agentCount)} working`;
+    return `${formatAgentCount(summary.agentCount)} đang làm việc`;
   }
 
   const remainingAgentCount = summary.agentCount - 1;
   if (remainingAgentCount <= 0) {
-    return `${leadName} working`;
+    return `${leadName} đang làm việc`;
   }
 
-  return `${leadName} and ${formatAgentCount(remainingAgentCount)} working`;
+  return `${leadName} và ${formatAgentCount(remainingAgentCount)} đang làm việc`;
 }
 
 function ChannelWorkingBadge({
@@ -503,7 +503,7 @@ export function SidebarSection({
                     ) : null}
                     {channel.channelType === "dm" && onHideDm ? (
                       <button
-                        aria-label="Close direct message"
+                        aria-label="Đóng tin nhắn riêng"
                         className={cn(
                           "absolute right-1 top-1/2 z-10 -translate-y-1/2 after:absolute after:-inset-2 after:md:hidden group-data-[collapsible=icon]:hidden",
                           SIDEBAR_ROW_ICON_ACTION_CLASS,

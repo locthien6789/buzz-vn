@@ -135,11 +135,10 @@ export function WelcomeSetup({
             >
               <div className="w-full max-w-[760px]">
                 <h1 className="text-title font-normal">
-                  Join or create a community
+                  Tham gia hoặc tạo cộng đồng
                 </h1>
                 <p className="mt-3 text-sm leading-6 text-foreground/80">
-                  Join with an invite, create your own community, or reconnect
-                  one you already have.
+                  Tham gia bằng lời mời, tạo cộng đồng riêng hoặc kết nối lại cộng đồng bạn đã có.
                 </p>
               </div>
               <div className="flex w-full flex-1 translate-y-16 flex-col items-center justify-center gap-20 py-8">
@@ -153,7 +152,7 @@ export function WelcomeSetup({
                     onClick={() => showPage("join")}
                     type="button"
                   >
-                    Join a community
+                    Tham gia cộng đồng
                   </button>
                 </Card>
                 <Card
@@ -246,7 +245,7 @@ export function WelcomeSetup({
                 <h1 className="text-title font-normal">
                   {page === "member"
                     ? "Reconnect to your community"
-                    : "Join a community"}
+                    : "Tham gia cộng đồng"}
                 </h1>
                 <p className="mt-3 text-sm leading-6 text-foreground/80">
                   {page === "member"

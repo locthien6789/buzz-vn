@@ -75,7 +75,7 @@ type SearchHitContextLabel = {
 function truncateResultText(content: string, maxLength = 96) {
   const trimmed = content.trim();
   if (trimmed.length === 0) {
-    return "No message body.";
+    return "Không có nội dung.";
   }
 
   if (trimmed.length <= maxLength) {
@@ -89,19 +89,19 @@ function formatRelativeTime(unixSeconds: number) {
   const diff = Math.floor(Date.now() / 1_000) - unixSeconds;
 
   if (diff < 60) {
-    return "just now";
+    return "vừa xong";
   }
 
   if (diff < 60 * 60) {
-    return `${Math.floor(diff / 60)}m ago`;
+    return `${Math.floor(diff / 60)} phút trước`;
   }
 
   if (diff < 60 * 60 * 24) {
-    return `${Math.floor(diff / (60 * 60))}h ago`;
+    return `${Math.floor(diff / (60 * 60))} giờ trước`;
   }
 
   if (diff < 60 * 60 * 24 * 7) {
-    return `${Math.floor(diff / (60 * 60 * 24))}d ago`;
+    return `${Math.floor(diff / (60 * 60 * 24))} ngày trước`;
   }
 
   return new Intl.DateTimeFormat("en-US", {
@@ -201,7 +201,7 @@ function getSearchHitContextLabel(
   if (channel?.channelType === "dm") {
     return {
       channelLabel: null,
-      text: "Direct message",
+      text: "Tin nhắn riêng",
     };
   }
 
@@ -210,10 +210,10 @@ function getSearchHitContextLabel(
   return {
     channelLabel: channelName,
     text: channelName
-      ? `${isThread ? "Thread" : "Message"} in`
+      ? `${isThread ? "Chủ đề" : "Tin nhắn"} trong`
       : isThread
-        ? "Thread"
-        : "Message",
+        ? "Chủ đề"
+        : "Tin nhắn",
   };
 }
 
@@ -236,17 +236,17 @@ function getResultSectionKey(result: SearchResult): SearchResultSectionKey {
 function getSectionTitle(sectionKey: SearchResultSectionKey) {
   switch (sectionKey) {
     case "channels":
-      return "Channels";
+      return "Kênh";
     case "direct-messages":
-      return "Direct messages";
+      return "Tin nhắn riêng";
     case "people":
-      return "People";
+      return "Mọi người";
     case "agents":
-      return "Agents";
+      return "Trợ lý AI";
     case "messages":
-      return "Most relevant";
+      return "Phù hợp nhất";
     case "actions":
-      return "Actions";
+      return "Hành động";
   }
 }
 
@@ -461,7 +461,7 @@ export function TopbarSearch({
         kind: "action",
         action: {
           id: "browse-channels",
-          title: "Browse channels",
+          title: "Duyệt kênh",
         },
       });
     }
@@ -471,7 +471,7 @@ export function TopbarSearch({
         kind: "action",
         action: {
           id: "create-channel",
-          title: "Create a new channel",
+          title: "Tạo kênh mới",
         },
       });
     }
@@ -481,7 +481,7 @@ export function TopbarSearch({
         kind: "action",
         action: {
           id: "create-agent",
-          title: "Create a new agent",
+          title: "Tạo trợ lý AI mới",
         },
       });
     }
@@ -833,12 +833,12 @@ export function TopbarSearch({
             currentChannelSearchAction ? "pb-5" : "py-5",
           )}
         >
-          <p>No recent activity yet.</p>
+          <p>Chưa có hoạt động gần đây.</p>
         </div>
       </div>
     ) : (
       <div
-        aria-label="Recent activity"
+        aria-label="Hoạt động gần đây"
         className="max-h-96 overflow-y-auto"
         role="listbox"
       >
@@ -852,7 +852,7 @@ export function TopbarSearch({
                 {suggestedResults.length > 0 ? (
                   <div>
                     <div className={SEARCH_SECTION_TITLE_CLASS}>
-                      Recent activity
+                      Hoạt động gần đây
                     </div>
                     {suggestedResults.map((result) =>
                       renderSearchResultRow(result, resultIndex++),
@@ -861,7 +861,7 @@ export function TopbarSearch({
                 ) : null}
                 {suggestionActionResults.length > 0 ? (
                   <div>
-                    <div className={SEARCH_SECTION_TITLE_CLASS}>Actions</div>
+                    <div className={SEARCH_SECTION_TITLE_CLASS}>Hành động</div>
                     {suggestionActionResults.map((result) =>
                       renderSearchResultRow(result, resultIndex++),
                     )}
@@ -899,7 +899,7 @@ export function TopbarSearch({
           currentChannelSearchAction ? "pb-5" : "py-5",
         )}
       >
-        No {scopeChannel ? "messages" : "matches"} for{" "}
+        {scopeChannel ? "Không có tin nhắn cho" : "Không tìm thấy kết quả cho"}{" "}
         <span className="font-semibold">{trimmedQuery}</span>
         {scopeLabel ? (
           <>
@@ -926,7 +926,7 @@ export function TopbarSearch({
     <div className={cn("relative", className)}>
       <Dialog open={isOpen} onOpenChange={handleSearchOpenChange}>
         <button
-          aria-label="Search everything"
+          aria-label="Tìm kiếm"
           className={
             isIconVariant
               ? "group/search flex size-6 items-center justify-center rounded p-1 text-sidebar-foreground/50 transition-colors hover:bg-sidebar-border/35 hover:text-sidebar-foreground focus-visible:bg-sidebar-border/35 focus-visible:text-sidebar-foreground focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-sidebar-ring"
@@ -935,7 +935,7 @@ export function TopbarSearch({
           data-testid="open-search"
           onClick={() => openSearchDialog(null)}
           ref={triggerRef}
-          title="Search everything"
+          title="Tìm kiếm"
           type="button"
         >
           <Search
@@ -955,7 +955,7 @@ export function TopbarSearch({
                     : "text-sidebar-foreground/55",
                 )}
               >
-                {query || "Search everything"}
+                {query || "Tìm kiếm"}
               </span>
               <kbd className="shrink-0 text-2xs text-sidebar-foreground/45">
                 &#x2318;K
@@ -978,7 +978,7 @@ export function TopbarSearch({
           showCloseButton={false}
         >
           <DialogTitle className="sr-only">
-            {scopeLabel ? `Search in ${scopeLabel}` : "Search everything"}
+            {scopeLabel ? `Tìm trong ${scopeLabel}` : "Tìm kiếm"}
           </DialogTitle>
           <SearchDialogInputRow
             inputRef={dialogInputRef}

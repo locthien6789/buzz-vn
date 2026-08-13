@@ -107,7 +107,7 @@ export function AppSidebarPrimaryMenu({
             className="data-[active=true]:font-normal"
             isActive={selectedView === "home"}
             onClick={onSelectHome}
-            tooltip="Inbox"
+            tooltip="Hộp thư"
             type="button"
           >
             <Inbox
@@ -118,7 +118,7 @@ export function AppSidebarPrimaryMenu({
             <SidebarMenuLabel
               className={selectedView !== "home" ? "opacity-80" : undefined}
             >
-              Inbox
+              Hộp thư
             </SidebarMenuLabel>
           </SidebarMenuButton>
           {homeBadgeCount > 0 ? (
@@ -136,11 +136,11 @@ export function AppSidebarPrimaryMenu({
               data-testid="open-pulse-view"
               isActive={selectedView === "pulse"}
               onClick={onSelectPulse}
-              tooltip="Pulse"
+              tooltip="Hoạt động"
               type="button"
             >
               <Activity className="h-4 w-4" />
-              <SidebarMenuLabel>Pulse</SidebarMenuLabel>
+              <SidebarMenuLabel>Hoạt động</SidebarMenuLabel>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </FeatureGate>
@@ -150,11 +150,11 @@ export function AppSidebarPrimaryMenu({
               data-testid="open-projects-view"
               isActive={selectedView === "projects"}
               onClick={onSelectProjects}
-              tooltip="Projects"
+              tooltip="Dự án"
               type="button"
             >
               <FolderGit2 className="h-4 w-4" />
-              <SidebarMenuLabel>Projects</SidebarMenuLabel>
+              <SidebarMenuLabel>Dự án</SidebarMenuLabel>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </FeatureGate>
@@ -164,7 +164,7 @@ export function AppSidebarPrimaryMenu({
             data-testid="open-agents-view"
             isActive={selectedView === "agents"}
             onClick={onSelectAgents}
-            tooltip="Agents"
+            tooltip="Trợ lý AI"
             type="button"
           >
             <Bot
@@ -175,7 +175,7 @@ export function AppSidebarPrimaryMenu({
             <SidebarMenuLabel
               className={selectedView !== "agents" ? "opacity-80" : undefined}
             >
-              Agents
+              Trợ lý AI
             </SidebarMenuLabel>
           </SidebarMenuButton>
         </SidebarMenuItem>
@@ -185,11 +185,11 @@ export function AppSidebarPrimaryMenu({
               data-testid="open-workflows-view"
               isActive={selectedView === "workflows"}
               onClick={onSelectWorkflows}
-              tooltip="Workflows"
+              tooltip="Quy trình"
               type="button"
             >
               <Zap className="h-4 w-4" />
-              <SidebarMenuLabel>Workflows</SidebarMenuLabel>
+              <SidebarMenuLabel>Quy trình</SidebarMenuLabel>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </FeatureGate>
