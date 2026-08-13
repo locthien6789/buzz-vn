@@ -6,42 +6,101 @@ on:
       - main
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   build-windows:
+    name: Build BuzzVN Windows
     runs-on: windows-latest
+    timeout-minutes: 60
+    permissions:
+      contents: read
+    env:
+      TARGET: x86_64-pc-windows-msvc
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      # rust-toolchain.toml in the repo root pins channel 1.95.0 automatically.
+      - name: Add Rust target
+        shell: bash
+        run: rustup target add "$TARGET"
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v3
+        uses: pnpm/action-setup@v4
         with:
-          version: 9
+          version: 11.4.0
 
-      - name: Install Rust
-        uses: dtolnay/rust-toolchain@stable
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        shell: bash
+        run: echo "STORE_PATH=$(pnpm store path --silent)" >> "$GITHUB_OUTPUT"
+
+      - name: Restore pnpm store cache
+        uses: actions/cache/restore@v4
         with:
-          targets: x86_64-pc-windows-msvc
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: pnpm-${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: pnpm-${{ runner.os }}-
 
       - name: Install dependencies
+        shell: bash
         run: pnpm install --frozen-lockfile
 
-      - name: Build Tauri App
+      - name: Generate non-updating bundle config
+        shell: bash
+        run: |
+          cat > desktop/src-tauri/tauri.canary.conf.json <<'JSON'
+          {
+            "bundle": {
+              "createUpdaterArtifacts": false
+            }
+          }
+          JSON
+
+      - name: Build sidecars
+        shell: bash
+        run: |
+          cargo build --release --target "$TARGET" -p buzz-acp -p buzz-agent -p buzz-dev-mcp -p git-credential-nostr -p buzz-cli
+          ./scripts/bundle-sidecars.sh "$TARGET"
+
+      - name: Build Windows NSIS installer
         shell: bash
         env:
-          TARGET: x86_64-pc-windows-msvc
-        run: |
-          rustup target add $TARGET
-          cd desktop
-          pnpm tauri build --runner cargo --target $TARGET
+          CMAKE_POLICY_VERSION_MINIMUM: "3.5"
+        run: cd desktop && pnpm tauri build --target "$TARGET" --bundles nsis --config src-tauri/tauri.canary.conf.json
 
-      - name: Upload Artifact
+      - name: Locate NSIS installer
+        id: artifact
+        shell: bash
+        run: |
+          set -euo pipefail
+          BUNDLE_DIR="desktop/src-tauri/target/${TARGET}/release/bundle"
+          EXE=$(find "$BUNDLE_DIR/nsis" -name '*.exe' -type f | head -1)
+          if [[ -z "$EXE" ]]; then
+            echo "::error::No NSIS installer found in $BUNDLE_DIR/nsis"
+            exit 1
+          fi
+          echo "exe=$EXE" >> "$GITHUB_OUTPUT"
+
+      - name: Upload BuzzVN installer
         uses: actions/upload-artifact@v4
         with:
-          name: Buzz_VN_Setup
-          path: desktop/src-tauri/target/x86_64-pc-windows-msvc/release/bundle/nsis/*.exe
+          name: BuzzVN_Setup
+          path: ${{ steps.artifact.outputs.exe }}
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Save pnpm store cache
+        uses: actions/cache/save@v4
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: pnpm-${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
