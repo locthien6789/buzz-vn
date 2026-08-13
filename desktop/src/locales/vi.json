@@ -1,0 +1,19 @@
+{
+  "translation": {
+    "login": {
+      "title": "Nhập khóa cá nhân của bạn",
+      "subtitle": "Dán khóa cá nhân của bạn để đăng nhập vào Buzz. Bạn cũng có thể sử dụng",
+      "backup_file": "file sao lưu",
+      "or": "hoặc",
+      "recover_phone": "khôi phục từ điện thoại của bạn",
+      "next": "Tiếp tục",
+      "back": "Quay lại"
+    },
+    "settings": {
+      "title": "Cài đặt",
+      "profile": "Hồ sơ",
+      "relay": "Máy chủ",
+      "model": "Mô hình AI"
+    }
+  }
+}
