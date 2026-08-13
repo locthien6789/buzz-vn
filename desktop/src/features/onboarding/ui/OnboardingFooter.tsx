@@ -59,7 +59,7 @@ export function OnboardingFooterProvider({
             type="button"
             variant="ghost"
           >
-            {backAction.label ?? "Back"}
+            {backAction.label ?? "Quay lại"}
           </Button>
         </div>
       ) : null}

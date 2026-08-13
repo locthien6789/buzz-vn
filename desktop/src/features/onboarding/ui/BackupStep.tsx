@@ -125,7 +125,7 @@ export function BackupStep({
       if (cancelledRef.current) return;
       setCopyState("idle");
       setCopyError(
-        err instanceof Error ? err.message : "Failed to retrieve private key.",
+        err instanceof Error ? err.message : "Không thể truy xuất khóa riêng tư.",
       );
     }
   }, [nsec]);
@@ -145,7 +145,7 @@ export function BackupStep({
     } catch (err) {
       if (cancelledRef.current) return;
       setCopyError(
-        err instanceof Error ? err.message : "Failed to retrieve private key.",
+        err instanceof Error ? err.message : "Không thể truy xuất khóa riêng tư.",
       );
     }
   }, [isRevealed, nsec]);
@@ -160,22 +160,22 @@ export function BackupStep({
   );
   const storageDescription =
     identityStorage === "system-keyring"
-      ? "Buzz keeps your identity key in your system keychain. Your computer may ask for your password when Buzz needs to read the key."
+      ? "Buzz giữ khóa danh tính của bạn trong chuỗi khóa hệ thống. Máy tính của bạn có thể yêu cầu mật khẩu khi Buzz cần đọc khóa."
       : identityStorage === "local-file"
-        ? "Your system keychain wasn’t available, so Buzz keeps your identity key in a private file on this device."
-        : "Buzz keeps your identity key protected on this device. Make a separate backup in case you lose access.";
+        ? "Chuỗi khóa hệ thống của bạn không khả dụng, vì vậy Buzz giữ khóa danh tính của bạn trong một tệp riêng tư trên thiết bị này."
+        : "Buzz giữ khóa danh tính của bạn được bảo vệ trên thiết bị này. Hãy tạo một bản sao lưu riêng phòng trường hợp bạn mất quyền truy cập.";
   const storageTitle =
     identityStorage === "system-keyring"
-      ? "Protected by your system keychain"
+      ? "Được bảo vệ bởi chuỗi khóa hệ thống"
       : identityStorage === "local-file"
-        ? "Stored in private device storage"
-        : "Protected in private device storage";
+        ? "Được lưu trữ trong bộ nhớ thiết bị riêng tư"
+        : "Được bảo vệ trong bộ nhớ thiết bị riêng tư";
   const introStorageDescription =
     identityStorage === "system-keyring"
-      ? "Buzz keeps your identity key in your system keychain."
+      ? "Buzz giữ khóa danh tính của bạn trong chuỗi khóa hệ thống."
       : identityStorage === "local-file"
-        ? "Buzz keeps your identity key in a private file on this device because the system keychain wasn’t available."
-        : "Your identity key is protected on this device.";
+        ? "Buzz giữ khóa danh tính của bạn trong một tệp riêng tư trên thiết bị này vì chuỗi khóa hệ thống không khả dụng."
+        : "Khóa danh tính của bạn được bảo vệ trên thiết bị này.";
 
   if (optionsExpanded) {
     return (
@@ -187,12 +187,12 @@ export function BackupStep({
       >
         <div className="flex w-full max-w-140 shrink-0 flex-col text-center">
           <h1 className="text-title font-normal text-foreground">
-            Backup options
+            Các tùy chọn sao lưu
           </h1>
           <p className="mt-5 text-sm leading-6 text-foreground/75">
-            Your identity key works like a password for your Buzz account. Keep
-            a copy somewhere safe. You can create a backup file and lock it with
-            a password you can remember.
+            Khóa danh tính của bạn hoạt động giống như mật khẩu cho tài khoản Buzz. Hãy
+            giữ một bản sao ở nơi an toàn. Bạn có thể tạo tệp sao lưu và khóa nó bằng
+            một mật khẩu mà bạn có thể nhớ.
           </p>
         </div>
 
@@ -216,10 +216,10 @@ export function BackupStep({
               data-testid="backup-option-panel"
             >
               <span className="text-lg font-medium">
-                Saved in your password manager
+                Lưu trong trình quản lý mật khẩu
               </span>
               <span className="mt-3 block text-sm leading-6 text-foreground/65">
-                Copy your identity key, then save it in a password manager like
+                Sao chép khóa danh tính của bạn, sau đó lưu vào trình quản lý mật khẩu như
                 1Password.
               </span>
               <Button
@@ -241,10 +241,10 @@ export function BackupStep({
                   <Copy className="h-4 w-4" aria-hidden="true" />
                 )}
                 {copyState === "copying"
-                  ? "Copying…"
+                  ? "Đang sao chép…"
                   : copyState === "copied"
-                    ? "Copied to clipboard"
-                    : "Copy to clipboard"}
+                    ? "Đã sao chép vào khay nhớ tạm"
+                    : "Sao chép vào khay nhớ tạm"}
               </Button>
             </div>
 
@@ -253,11 +253,11 @@ export function BackupStep({
               data-testid="backup-option-panel"
             >
               <span className="text-lg font-medium">
-                Locked in a backup file
+                Khóa trong tệp sao lưu
               </span>
               <span className="mt-3 block text-sm leading-6 text-foreground/65">
-                Create a backup file and choose a password you can remember.
-                You’ll need both to restore your account.
+                Tạo một tệp sao lưu và chọn một mật khẩu bạn có thể nhớ.
+                Bạn sẽ cần cả hai để khôi phục tài khoản của mình.
               </span>
               <Button
                 className={cn(
@@ -270,7 +270,7 @@ export function BackupStep({
                 variant="ghost"
               >
                 <ShieldCheck className="h-5 w-5" aria-hidden="true" />
-                Create locked backup
+                Tạo bản sao lưu được khóa
               </Button>
             </div>
           </div>
@@ -280,8 +280,7 @@ export function BackupStep({
               className="mt-4 text-center text-sm text-destructive"
               data-testid="backup-copy-error"
             >
-              Could not retrieve your private key: {copyError}. You can continue
-              and find it later in Settings &gt; Profile &gt; Identity.
+              Không thể lấy được khóa riêng tư của bạn: {copyError}. Bạn có thể tiếp tục và tìm nó sau trong Cài đặt &gt; Hồ sơ &gt; Danh tính.
             </p>
           ) : null}
         </div>
@@ -304,8 +303,8 @@ export function BackupStep({
           key={created ? "created" : "creating"}
         >
           {created
-            ? "Your unique identity key has been created"
-            : "Creating your identity key"}
+            ? "Khóa danh tính duy nhất của bạn đã được tạo"
+            : "Đang tạo khóa danh tính"}
         </h1>
         {created ? (
           <p
@@ -314,16 +313,16 @@ export function BackupStep({
               REVEAL_ANIMATION_CLASS,
             )}
           >
-            {introStorageDescription} You can continue now, or{" "}
+            {introStorageDescription} Bạn có thể tiếp tục bây giờ, hoặc{" "}
             <button
               className="rounded-sm font-medium underline decoration-foreground/40 underline-offset-4 transition-colors hover:decoration-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
               data-testid="backup-options-link"
               onClick={onShowOptions}
               type="button"
             >
-              review backup options
+              xem lại các tùy chọn sao lưu
             </button>{" "}
-            for ways to restore your account.
+            cho các cách khôi phục tài khoản của bạn.
           </p>
         ) : null}
       </div>
@@ -334,7 +333,7 @@ export function BackupStep({
           data-testid="backup-intro-logo"
         >
           <FuzzyLogo
-            ariaLabel="Creating your identity key"
+            ariaLabel="Đang tạo khóa danh tính"
             className="w-20! text-foreground"
             fuzz
             loop
@@ -366,7 +365,7 @@ export function BackupStep({
                 </div>
                 <Button
                   aria-label={
-                    isRevealed ? "Hide private key" : "Reveal private key"
+                    isRevealed ? "Ẩn khóa riêng tư" : "Hiển thị khóa riêng tư"
                   }
                   className="h-10 w-10 shrink-0 text-muted-foreground hover:text-foreground"
                   data-testid="backup-key-reveal-toggle"
@@ -389,17 +388,17 @@ export function BackupStep({
                 className="mt-4 text-center text-sm text-destructive"
                 data-testid="backup-copy-error"
               >
-                Could not retrieve your private key: {copyError}. You can
-                continue and find it later in Settings &gt; Profile &gt;
-                Identity.
+                Không thể lấy được khóa riêng tư của bạn: {copyError}. Bạn có thể
+                tiếp tục và tìm nó sau trong Cài đặt &gt; Hồ sơ &gt;
+                Danh tính.
               </p>
             ) : null}
 
             <p className="mx-auto mt-5 flex max-w-[440px] items-start justify-center gap-1.5 text-center text-xs leading-5 text-[var(--buzz-onboarding-backup-ink)]">
               <Info className="mt-0.5 h-3.5 w-3.5 shrink-0" />
               <span>
-                Never share your private key. Anyone with this key can
-                impersonate you and access everything in your account.
+                Không bao giờ chia sẻ khóa riêng tư của bạn. Bất kỳ ai có khóa này đều có thể
+                mạo danh bạn và truy cập mọi thứ trong tài khoản của bạn.
               </span>
             </p>
           </div>
@@ -414,7 +413,7 @@ export function BackupStep({
           onClick={onNext}
           type="button"
         >
-          Next
+          Tiếp tục
         </Button>
       </OnboardingFooter>
     </OnboardingSlideTransition>

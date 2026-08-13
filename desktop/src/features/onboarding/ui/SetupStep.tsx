@@ -150,7 +150,7 @@ function RuntimeStatus({
     return (
       <div className="flex flex-col items-center gap-1.5">
         <Button
-          aria-label={`Sign in to ${runtime.label}`}
+          aria-label={`Đăng nhập vào ${runtime.label}`}
           className="buzz-onboarding-runtime-setup h-5 rounded-full bg-[var(--buzz-welcome-chartreuse)]/30 px-2.5 font-mono !text-badge font-normal uppercase text-foreground hover:bg-[var(--buzz-welcome-chartreuse)]/40"
           data-testid={`onboarding-runtime-instructions-${runtime.id}`}
           onClick={() => {
@@ -178,23 +178,23 @@ function RuntimeStatus({
           variant="ghost"
         >
           {isWaitingForSignIn
-            ? "CHECKING…"
+            ? "ĐANG KIỂM TRA…"
             : didSignInCheckTimeOut
-              ? "CHECK AGAIN"
-              : "SIGN IN"}
+              ? "KIỂM TRA LẠI"
+              : "ĐĂNG NHẬP"}
         </Button>
         {methodsQuery.error instanceof Error ? (
           <RuntimeErrorTooltip
             className="absolute inset-x-3 bottom-2 truncate text-xs leading-4 text-destructive"
-            detail="Couldn’t load sign-in options."
-            label="Sign-in unavailable"
+            detail="Không thể tải các tùy chọn đăng nhập."
+            label="Đăng nhập không khả dụng"
           />
         ) : null}
         {connectMutation.error instanceof Error ? (
           <RuntimeErrorTooltip
             className="absolute inset-x-3 bottom-2 truncate text-xs leading-4 text-destructive"
-            detail="Couldn’t start sign-in. Try again."
-            label="Sign-in failed"
+            detail="Không thể bắt đầu đăng nhập. Thử lại."
+            label="Đăng nhập thất bại"
           />
         ) : null}
       </div>
@@ -204,12 +204,12 @@ function RuntimeStatus({
   if (isInstalling) {
     return (
       <div
-        aria-label={`Installing ${runtime.label}`}
+        aria-label={`Đang cài đặt ${runtime.label}`}
         className="flex h-5 items-center gap-2 rounded-full bg-white/60 px-2.5 font-mono text-badge font-normal uppercase text-foreground"
         role="status"
       >
         <Spinner className="h-3 w-3 border-2 text-foreground" />
-        INSTALLING
+        ĐANG CÀI ĐẶT
       </div>
     );
   }
@@ -222,7 +222,7 @@ function RuntimeStatus({
             className="inline-flex h-5 cursor-default items-center rounded-full bg-[#EBEFEF] px-2.5 font-mono text-badge font-normal uppercase text-foreground"
             data-testid={`onboarding-runtime-ready-${runtime.id}`}
           >
-            READY
+            SẴN SÀNG
           </span>
         </TooltipTrigger>
         <TooltipContent
@@ -241,23 +241,23 @@ function RuntimeStatus({
   ) {
     return (
       <Button
-        aria-label={`Check ${runtime.label} again`}
+        aria-label={`Kiểm tra lại ${runtime.label}`}
         className="buzz-onboarding-runtime-setup h-5 rounded-full bg-[var(--buzz-welcome-chartreuse)]/30 px-2.5 font-mono !text-badge font-normal uppercase text-foreground hover:bg-[var(--buzz-welcome-chartreuse)]/40"
         disabled={runtimesQuery.isFetching}
         onClick={() => void runtimesQuery.refetch()}
         type="button"
         variant="ghost"
       >
-        {runtimesQuery.isFetching ? "CHECKING…" : "CHECK AGAIN"}
+        {runtimesQuery.isFetching ? "ĐANG KIỂM TRA…" : "KIỂM TRA LẠI"}
       </Button>
     );
   }
 
-  const installLabel = installError ? "RETRY INSTALL" : "INSTALL";
+  const installLabel = installError ? "THỬ CÀI ĐẶT LẠI" : "CÀI ĐẶT";
   if (runtime.canAutoInstall) {
     return (
       <Button
-        aria-label={`${installError ? "Retry installing" : "Install"} ${runtime.label}`}
+        aria-label={`${installError ? "Thử cài đặt lại" : "Cài đặt"} ${runtime.label}`}
         className="buzz-onboarding-runtime-setup h-5 rounded-full bg-[var(--buzz-welcome-chartreuse)]/30 px-2.5 font-mono !text-badge font-normal uppercase text-foreground hover:bg-[var(--buzz-welcome-chartreuse)]/40"
         data-testid={`onboarding-runtime-install-${runtime.id}`}
         onClick={onInstall}
@@ -271,14 +271,14 @@ function RuntimeStatus({
 
   return (
     <Button
-      aria-label={`View ${runtime.label} install instructions`}
+      aria-label={`Xem hướng dẫn cài đặt ${runtime.label}`}
       className="buzz-onboarding-runtime-setup h-5 rounded-full bg-[var(--buzz-welcome-chartreuse)]/30 px-2.5 font-mono !text-badge font-normal uppercase text-foreground hover:bg-[var(--buzz-welcome-chartreuse)]/40"
       data-testid={`onboarding-runtime-instructions-${runtime.id}`}
       onClick={() => void openUrl(runtime.installInstructionsUrl)}
       type="button"
       variant="ghost"
     >
-      INSTALL
+      CÀI ĐẶT
     </Button>
   );
 }
@@ -300,7 +300,7 @@ function RuntimeDetails({ runtime }: { runtime: AcpRuntimeCatalogEntry }) {
         </p>
         {runtime.defaultArgs.length > 0 ? (
           <p className="mt-1 text-xs leading-4 text-white">
-            Args:{" "}
+            Đối số:{" "}
             <code className="font-mono">{runtime.defaultArgs.join(", ")}</code>
           </p>
         ) : null}
@@ -312,7 +312,7 @@ function RuntimeDetails({ runtime }: { runtime: AcpRuntimeCatalogEntry }) {
     return (
       <>
         <p className="text-xs leading-4 text-white">
-          CLI detected; ACP adapter missing.
+          Đã phát hiện CLI; thiếu bộ điều hợp ACP.
         </p>
         <p className="mt-1 text-xs leading-4 text-white">
           {runtime.installHint}
@@ -325,19 +325,19 @@ function RuntimeDetails({ runtime }: { runtime: AcpRuntimeCatalogEntry }) {
     return (
       <>
         <p className="text-xs leading-4 text-white">
-          ACP adapter detected but outdated — reinstall required.
+          Đã phát hiện bộ điều hợp ACP nhưng đã lỗi thời — cần cài đặt lại.
         </p>
         <p className="mt-1 text-xs leading-4 text-white">
-          This updates the machine-global{" "}
+          Quá trình này cập nhật bộ điều hợp{" "}
           <code className="rounded bg-white/10 px-0.5 font-mono text-xs text-white">
             codex-acp
           </code>{" "}
-          adapter. Older Buzz releases using the legacy adapter contract may
-          lose community access until{" "}
+          toàn cục của máy. Các bản phát hành Buzz cũ hơn sử dụng giao kèo bộ điều hợp cũ
+          có thể mất quyền truy cập cộng đồng cho đến khi{" "}
           <code className="rounded bg-white/10 px-0.5 font-mono text-xs text-white">
             @zed-industries/codex-acp@0.16.0
           </code>{" "}
-          is restored.
+          được khôi phục.
         </p>
         <p className="mt-1 text-xs leading-4 text-white">
           {runtime.installHint}
@@ -350,7 +350,7 @@ function RuntimeDetails({ runtime }: { runtime: AcpRuntimeCatalogEntry }) {
     return (
       <>
         <p className="text-xs leading-4 text-white">
-          ACP adapter detected; CLI missing.
+          Đã phát hiện bộ điều hợp ACP; thiếu CLI.
         </p>
         <p className="mt-1 text-xs leading-4 text-white">
           {runtime.installHint}
@@ -361,7 +361,7 @@ function RuntimeDetails({ runtime }: { runtime: AcpRuntimeCatalogEntry }) {
 
   return (
     <>
-      <p className="text-xs leading-4 text-white">Not installed yet.</p>
+      <p className="text-xs leading-4 text-white">Chưa được cài đặt.</p>
       <p className="mt-1 text-xs leading-4 text-white">{runtime.installHint}</p>
     </>
   );
@@ -380,16 +380,16 @@ function runtimeDetailText(runtime: AcpRuntimeCatalogEntry): string {
     return description.charAt(0).toUpperCase() + description.slice(1);
   }
   if (runtime.availability === "adapter_missing") {
-    return "CLI detected; ACP adapter missing.";
+    return "Đã phát hiện CLI; thiếu bộ điều hợp ACP.";
   }
   if (runtime.availability === "adapter_outdated") {
-    return "ACP adapter detected but outdated — reinstall required.";
+    return "Đã phát hiện bộ điều hợp ACP nhưng đã lỗi thời — cần cài đặt lại.";
   }
   if (
     runtime.availability === "cli_missing" ||
     runtime.availability === "not_installed"
   ) {
-    return "CLI not detected.";
+    return "Không phát hiện thấy CLI.";
   }
   return "";
 }
@@ -446,8 +446,8 @@ function RuntimeAuthError({ runtime }: { runtime: AcpRuntimeCatalogEntry }) {
     return (
       <RuntimeErrorTooltip
         className="absolute inset-x-3 bottom-2 truncate text-xs leading-4 text-destructive"
-        detail="Check this runtime’s configuration and try again."
-        label="Configuration invalid"
+        detail="Kiểm tra cấu hình của runtime này và thử lại."
+        label="Cấu hình không hợp lệ"
       />
     );
   }
@@ -458,8 +458,8 @@ function RuntimeAuthError({ runtime }: { runtime: AcpRuntimeCatalogEntry }) {
     return (
       <RuntimeErrorTooltip
         className="absolute inset-x-3 bottom-2 truncate text-xs leading-4 text-destructive"
-        detail="Couldn’t verify authentication."
-        label="Status unavailable"
+        detail="Không thể xác minh xác thực."
+        label="Trạng thái không khả dụng"
       />
     );
   }
@@ -510,7 +510,7 @@ function RuntimeCard({
         onInstallResultsChange((current) => ({
           ...current,
           [runtime.id]: {
-            error: error instanceof Error ? error.message : "Install failed.",
+            error: error instanceof Error ? error.message : "Cài đặt thất bại.",
             success: false,
           },
         }));
@@ -571,7 +571,7 @@ function RuntimeCard({
         <RuntimeErrorTooltip
           className="absolute inset-x-3 bottom-2 flex min-w-0 items-center justify-center gap-1.5 overflow-hidden whitespace-nowrap text-xs leading-4 text-destructive"
           detail={installError}
-          label="Installation failed"
+          label="Cài đặt thất bại"
           showIcon
           testId={`onboarding-runtime-error-${runtime.id}`}
         />
@@ -593,7 +593,7 @@ function RuntimeProvidersLoadingState() {
       <div className="flex flex-col items-center text-foreground opacity-35">
         <FlappingBee className="h-auto w-16" />
         <p className="mt-5 text-2xl font-normal leading-8">
-          Finding your providers...
+          Đang tìm nhà cung cấp của bạn...
         </p>
       </div>
     </div>
@@ -620,11 +620,10 @@ function RuntimeProvidersSection({
     <section className="flex min-h-full w-full flex-col items-center">
       <div className="w-full max-w-[820px] text-center">
         <h1 className="text-title font-normal text-foreground">
-          Set up your agent harnesses
+          Thiết lập bộ điều khiển tác nhân của bạn
         </h1>
         <p className="mx-auto mt-3 max-w-[760px] text-sm leading-6 text-foreground/90">
-          Buzz checks for command-line harnesses on this machine. Install the
-          CLI or sign in to at least one to continue.
+          Buzz kiểm tra các bộ điều khiển dòng lệnh trên máy này. Cài đặt CLI hoặc đăng nhập vào ít nhất một bộ để tiếp tục.
         </p>
       </div>
 
@@ -647,8 +646,7 @@ function RuntimeProvidersSection({
             className="max-w-[560px] rounded-2xl bg-white/70 px-6 py-6 text-sm text-muted-foreground"
             data-testid="onboarding-acp-empty"
           >
-            No supported command-line harnesses were detected yet. Install a
-            supported CLI, then check again.
+            Chưa phát hiện thấy bộ điều khiển dòng lệnh nào được hỗ trợ. Cài đặt một CLI được hỗ trợ, sau đó kiểm tra lại.
           </p>
         )}
 
@@ -661,7 +659,7 @@ function RuntimeProvidersSection({
         <p className="mx-auto flex max-w-[440px] items-start justify-center gap-1.5 text-center text-xs leading-5 text-[var(--buzz-onboarding-backup-ink)]">
           <Info aria-hidden className="mt-0.5 h-3.5 w-3.5 shrink-0" />
           <span>
-            More harnesses (Cursor, Grok, Amp&hellip;){" "}
+            Thêm bộ điều khiển (Cursor, Grok, Amp&hellip;){" "}
             {navigateToAgentSettings ? (
               <button
                 className="underline underline-offset-2 hover:text-foreground"
@@ -669,12 +667,12 @@ function RuntimeProvidersSection({
                 onClick={navigateToAgentSettings}
                 type="button"
               >
-                Settings → Agents
+                Cài đặt → Tác nhân
               </button>
             ) : (
-              <span>Settings → Agents</span>
+              <span>Cài đặt → Tác nhân</span>
             )}{" "}
-            after setup.
+            sau khi thiết lập.
           </span>
         </p>
       </div>
@@ -728,7 +726,7 @@ function SetupStepContent({
           onClick={() => actions.next(readyRuntimeIds)}
           type="button"
         >
-          Next
+          Tiếp tục
         </Button>
         <Button
           className="h-9 whitespace-nowrap rounded-full px-6 text-sm hover:bg-foreground/10"
@@ -737,7 +735,7 @@ function SetupStepContent({
           type="button"
           variant="ghost"
         >
-          Skip for now
+          Bỏ qua cho bây giờ
         </Button>
       </OnboardingFooter>
     </OnboardingSlideTransition>

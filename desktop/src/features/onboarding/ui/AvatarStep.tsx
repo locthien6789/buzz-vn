@@ -101,7 +101,7 @@ function AvatarPreview({
         </div>
       ) : !hasAvatarUrl ? (
         <div
-          aria-label="Add a display image"
+          aria-label="Thêm ảnh hiển thị"
           className="flex h-full w-full shrink-0 items-center justify-center rounded-full border-2 border-dashed border-border bg-background text-primary shadow-xs"
           data-testid="onboarding-avatar-preview"
           role="img"
@@ -177,11 +177,11 @@ function AvatarStepActions({
             >
               {isSaving || isUploadingAvatar ? (
                 <Spinner
-                  aria-label={isSaving ? "Saving profile" : "Uploading avatar"}
+                  aria-label={isSaving ? "Đang lưu hồ sơ" : "Đang tải lên ảnh đại diện"}
                   className="h-4 w-4 border-2"
                 />
               ) : (
-                "Next"
+                "Tiếp tục"
               )}
             </Button>
 
@@ -196,7 +196,7 @@ function AvatarStepActions({
                 type="button"
                 variant="ghost"
               >
-                Skip for now
+                Bỏ qua cho bây giờ
               </Button>
             ) : showAlwaysSkip && !saveRecovery.errorMessage ? (
               // Normal path: advances to the theme step without saving an avatar.
@@ -208,7 +208,7 @@ function AvatarStepActions({
                 type="button"
                 variant="ghost"
               >
-                Skip for now
+                Bỏ qua cho bây giờ
               </Button>
             ) : null}
 
@@ -221,7 +221,7 @@ function AvatarStepActions({
                 type="button"
                 variant="ghost"
               >
-                Continue without saving
+                Tiếp tục mà không lưu
               </Button>
             ) : null}
 
@@ -234,7 +234,7 @@ function AvatarStepActions({
                 type="button"
                 variant="ghost"
               >
-                Back
+                Quay lại
               </Button>
             ) : null}
           </motion.div>
@@ -283,7 +283,7 @@ export function AvatarStep({
   const areActionsHidden =
     isCustomColorPickerOpen || shouldHideActionsForAnimatedAvatar;
   const previewName =
-    name.draftValue.trim() || name.savedValue.trim() || "Your avatar";
+    name.draftValue.trim() || name.savedValue.trim() || "Ảnh đại diện của bạn";
   const animateEmojiAvatarChange = React.useCallback(() => {
     setAvatarSquishKey((key) => key + 1);
   }, []);
@@ -336,10 +336,10 @@ export function AvatarStep({
         <div className="flex w-full flex-col items-center text-center lg:items-start lg:text-left">
           <div className="w-full max-w-[500px]">
             <h1 className="text-title font-normal text-foreground">
-              Next, add a display image
+              Tiếp theo, thêm một ảnh hiển thị
             </h1>
             <p className="mt-5 text-sm leading-6 text-muted-foreground">
-              Choose an image or emoji as your avatar
+              Chọn một hình ảnh hoặc biểu tượng cảm xúc làm ảnh đại diện của bạn
             </p>
           </div>
 

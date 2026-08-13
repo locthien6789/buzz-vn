@@ -60,7 +60,7 @@ export function IdentityKeyHelpDialog() {
             type="button"
             variant="link"
           >
-            What’s an identity key?
+            Khóa danh tính là gì?
           </Button>
         </DialogTrigger>
       </OnboardingFooter>
@@ -74,7 +74,7 @@ export function IdentityKeyHelpDialog() {
       >
         <div className="mx-auto w-full max-w-[35rem] py-14 text-left max-sm:py-6">
           <DialogTitle className="text-balance pr-8 text-3xl font-normal text-foreground">
-            What’s an identity key?
+            Khóa danh tính là gì?
           </DialogTitle>
           <DialogDescription
             asChild
@@ -82,18 +82,18 @@ export function IdentityKeyHelpDialog() {
           >
             <div>
               <p>
-                Buzz uses an identity key instead of a traditional account. It’s
-                created on your device and represents you whenever you use Buzz.
+                Buzz sử dụng một khóa danh tính thay vì một tài khoản truyền thống. Khóa này
+                được tạo trên thiết bị của bạn và đại diện cho bạn mỗi khi bạn sử dụng Buzz.
               </p>
               <p>
-                Your identity belongs to you, not Buzz. There’s no password to
-                reset, and Buzz can’t recover your key if you lose it. Keep a
-                backup somewhere safe and never share it. Anyone with your key
-                can act as you.
+                Danh tính của bạn thuộc về bạn, không phải Buzz. Không có mật khẩu để
+                đặt lại, và Buzz không thể khôi phục khóa của bạn nếu bạn làm mất nó. Hãy giữ một
+                bản sao lưu ở nơi an toàn và không bao giờ chia sẻ nó. Bất kỳ ai có khóa của bạn
+                đều có thể hành động với tư cách là bạn.
               </p>
               <p>
-                If you’re new to Buzz, create a new identity key. If you already
-                have a Nostr identity, use your existing key.
+                Nếu bạn mới sử dụng Buzz, hãy tạo một khóa danh tính mới. Nếu bạn đã
+                có danh tính Nostr, hãy sử dụng khóa hiện tại của bạn.
               </p>
             </div>
           </DialogDescription>

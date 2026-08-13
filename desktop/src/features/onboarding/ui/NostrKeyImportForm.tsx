@@ -55,7 +55,7 @@ type NostrKeyImportFormProps = {
  * existing key). The caller owns what happens after `onImport` resolves.
  */
 export function NostrKeyImportForm({
-  backLabel = "Back",
+  backLabel = "Quay lại",
   disabled = false,
   errorMessage: externalErrorMessage = null,
   onBack,
@@ -172,7 +172,7 @@ export function NostrKeyImportForm({
 
     if (file.size > NOSTR_KEY_FILE_MAX_BYTES) {
       setImportError(
-        "That file is too large to be a key backup or private key. Choose another file.",
+        "Tệp đó quá lớn để làm bản sao lưu khóa hoặc khóa riêng tư. Chọn tệp khác.",
       );
       return;
     }
@@ -185,7 +185,7 @@ export function NostrKeyImportForm({
       setImportError(null);
     } catch (error) {
       setImportError(
-        error instanceof Error ? error.message : "Couldn't read that file.",
+        error instanceof Error ? error.message : "Không thể đọc tệp đó.",
       );
     }
   }, []);
@@ -203,10 +203,10 @@ export function NostrKeyImportForm({
     if (!isValid) {
       setImportError(
         isPasswordStage
-          ? "Enter the password for this key backup."
+          ? "Nhập mật khẩu cho bản sao lưu khóa này."
           : isEncryptedInput
-            ? "That doesn't look like a complete ncryptsec backup."
-            : "That doesn't look like a valid nsec. Paste an nsec1 key.",
+            ? "Đó có vẻ không phải là bản sao lưu ncryptsec hoàn chỉnh."
+            : "Đó có vẻ không phải là nsec hợp lệ. Dán khóa nsec1.",
       );
       return;
     }
@@ -220,7 +220,7 @@ export function NostrKeyImportForm({
       await onImport(trimmedInput, isPasswordStage ? passphrase : undefined);
     } catch (error) {
       setImportError(
-        error instanceof Error ? error.message : "Couldn't import this key.",
+        error instanceof Error ? error.message : "Không thể nhập khóa này.",
       );
     } finally {
       importInFlightRef.current = false;
@@ -283,7 +283,7 @@ export function NostrKeyImportForm({
             )}
             htmlFor="nostr-private-key"
           >
-            Private key
+            Khóa riêng tư
           </label>
           {variant === "spotlight" ? (
             <Card
@@ -305,7 +305,7 @@ export function NostrKeyImportForm({
                     setNsecInput(event.target.value);
                     setImportError(null);
                   }}
-                  placeholder="Enter your key here"
+                  placeholder="Nhập khóa của bạn ở đây"
                   ref={inputRef}
                   spellCheck={false}
                   type={isRevealed ? "text" : "password"}
@@ -316,7 +316,7 @@ export function NostrKeyImportForm({
                 <Button
                   aria-hidden={!hasInput}
                   aria-label={
-                    isRevealed ? "Hide private key" : "Reveal private key"
+                    isRevealed ? "Ẩn khóa riêng tư" : "Hiển thị khóa riêng tư"
                   }
                   className={cn(
                     "absolute right-8 top-1/2 h-10 w-10 -translate-y-1/2 text-muted-foreground transition-opacity duration-300 hover:bg-foreground/10 hover:text-foreground motion-reduce:transition-none",
@@ -396,7 +396,7 @@ export function NostrKeyImportForm({
               type="button"
             >
               <FileKey2 aria-hidden="true" className="mr-2 size-4" />
-              Choose a backup file
+              Chọn tệp sao lưu
             </Button>
             <BackupFileUnlockPreview />
           </div>
@@ -408,7 +408,7 @@ export function NostrKeyImportForm({
             >
               <span className="flex items-center gap-2 rounded-full bg-foreground px-4 py-2 text-sm font-semibold text-background shadow-sm ring-1 ring-background/15">
                 <KeyRound aria-hidden="true" className="size-4" />
-                <span>Drop your backup file here</span>
+                <span>Thả tệp sao lưu của bạn vào đây</span>
               </span>
             </fieldset>
           ) : null}
@@ -480,7 +480,7 @@ export function NostrKeyImportForm({
               isDragging && "text-primary",
             )}
           >
-            Drop a key here
+            Thả khóa vào đây
           </span>
         </button>
       ) : null}
@@ -492,7 +492,7 @@ export function NostrKeyImportForm({
         >
           <BackupPasswordTimeline mode="restore" />
           <label className="sr-only" htmlFor="nostr-import-passphrase">
-            Backup password
+            Mật khẩu sao lưu
           </label>
           <div className="relative z-10">
             <Input
@@ -505,14 +505,14 @@ export function NostrKeyImportForm({
                 setPassphrase(event.target.value);
                 setImportError(null);
               }}
-              placeholder="Backup password"
+              placeholder="Mật khẩu sao lưu"
               ref={passphraseInputRef}
               spellCheck={false}
               type={isRevealed ? "text" : "password"}
               value={passphrase}
             />
             <Button
-              aria-label={isRevealed ? "Hide password" : "Reveal password"}
+              aria-label={isRevealed ? "Ẩn mật khẩu" : "Hiển thị mật khẩu"}
               className="absolute right-1 top-1/2 h-8 w-8 -translate-y-1/2 text-black/55 hover:bg-black/5 hover:text-black/80"
               data-testid="nostr-import-passphrase-reveal-toggle"
               disabled={isInteractionDisabled}
@@ -549,7 +549,7 @@ export function NostrKeyImportForm({
               >
                 <p className="flex items-center justify-center gap-1.5 text-foreground">
                   <Check aria-hidden="true" className="h-4 w-4 shrink-0" />
-                  Nostr identity found
+                  Đã tìm thấy danh tính Nostr
                 </p>
                 <p className="break-all font-mono text-[color:var(--buzz-onboarding-backup-ink)]">
                   {previewNpub}
@@ -563,7 +563,7 @@ export function NostrKeyImportForm({
                 <Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
                 <div className="min-w-0 space-y-0.5">
                   <p className="font-medium text-foreground">
-                    This will use this Nostr identity:
+                    Sẽ sử dụng danh tính Nostr này:
                   </p>
                   <p className="break-all font-mono text-2xs text-muted-foreground">
                     {previewNpub}
@@ -576,8 +576,8 @@ export function NostrKeyImportForm({
           {showInvalidHint && !errorMessage ? (
             <p className="text-sm text-muted-foreground">
               {isEncryptedInput
-                ? "Waiting for a complete ncryptsec backup"
-                : "Waiting for a valid nsec1 key"}
+                ? "Đang chờ bản sao lưu ncryptsec hoàn chỉnh"
+                : "Đang chờ khóa nsec1 hợp lệ"}
             </p>
           ) : null}
 
@@ -614,13 +614,13 @@ export function NostrKeyImportForm({
           >
             {isImporting ? (
               <Spinner
-                aria-label="Importing key"
+                aria-label="Đang nhập khóa"
                 className="h-4 w-4 border-2"
               />
             ) : variant === "spotlight" ? (
-              "Next"
+              "Tiếp tục"
             ) : (
-              "Continue with this key"
+              "Tiếp tục với khóa này"
             )}
           </Button>
         ) : null}
@@ -637,7 +637,7 @@ export function NostrKeyImportForm({
             type="button"
             variant="ghost"
           >
-            {isPasswordStage ? "Back" : backLabel}
+            {isPasswordStage ? "Quay lại" : backLabel}
           </Button>
         ) : null}
       </Footer>

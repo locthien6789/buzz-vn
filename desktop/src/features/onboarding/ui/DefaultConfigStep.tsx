@@ -42,7 +42,7 @@ type DefaultConfigStepProps = {
 };
 
 function formatHarnessLabel(runtime: AcpRuntimeCatalogEntry | undefined) {
-  if (!runtime) return "Select a harness";
+  if (!runtime) return "Chọn một bộ điều khiển";
   return runtime.id === "buzz-agent" ? "Buzz" : runtime.label;
 }
 
@@ -231,11 +231,11 @@ function AgentDefaultsSection({
       {configSurfaceLoading ? (
         <div className="flex items-center justify-center gap-2 py-4 text-sm text-muted-foreground">
           <Spinner className="h-4 w-4 border-2" />
-          Loading…
+          Đang tải…
         </div>
       ) : configSurfaceError ? (
         <p className="py-4 text-center text-sm text-destructive">
-          Couldn't load harness settings. Go back and try again.
+          Không thể tải cài đặt bộ điều khiển. Quay lại và thử lại.
         </p>
       ) : (
         <div className="space-y-7">
@@ -244,14 +244,14 @@ function AgentDefaultsSection({
               className="pl-3 text-sm font-medium"
               htmlFor="global-agent-default-harness"
             >
-              Default harness
+              Bộ điều khiển mặc định
             </label>
             <AgentDropdownSelect
               className="h-12 rounded-2xl border-foreground/15 bg-white px-4 py-2 text-sm shadow-none hover:bg-white/95"
               id="global-agent-default-harness"
               onValueChange={handleHarnessChange}
               options={harnessOptions}
-              placeholder="Select a harness"
+              placeholder="Chọn một bộ điều khiển"
               placeholderClassName="text-foreground/70"
               testId="global-agent-default-harness"
               value={selectedRuntimeId}
@@ -333,7 +333,7 @@ export function DefaultConfigStep({
       setSaveError(
         cause instanceof Error
           ? cause.message
-          : "Couldn’t save model settings.",
+          : "Không thể lưu cài đặt mô hình.",
       );
     } finally {
       setIsSaving(false);
@@ -354,12 +354,10 @@ export function DefaultConfigStep({
     >
       <div className="w-full max-w-[500px] text-center">
         <h1 className="text-title font-normal text-foreground">
-          Configure your default model settings
+          Định cấu hình cài đặt mô hình mặc định của bạn
         </h1>
         <p className="mx-auto mt-3 max-w-[440px] text-sm leading-5 text-foreground/80">
-          This will be set as your default model configuration across Buzz. You
-          can always change this in your Settings or give specific agents a
-          different configuration.
+          Cấu hình này sẽ được đặt làm cấu hình mô hình mặc định của bạn trên Buzz. Bạn luôn có thể thay đổi cấu hình này trong Cài đặt của mình hoặc cung cấp cho các tác nhân cụ thể một cấu hình khác.
         </p>
       </div>
 
@@ -383,7 +381,7 @@ export function DefaultConfigStep({
           onClick={() => void handleComplete()}
           type="button"
         >
-          {isSaving ? "Saving…" : "Next"}
+          {isSaving ? "Đang lưu…" : "Tiếp tục"}
         </Button>
         <Button
           className="h-9 whitespace-nowrap rounded-full px-6 text-sm hover:bg-foreground/10"
@@ -393,7 +391,7 @@ export function DefaultConfigStep({
           type="button"
           variant="ghost"
         >
-          Skip for now
+          Bỏ qua cho bây giờ
         </Button>
 
         {saveError ? (
@@ -402,7 +400,7 @@ export function DefaultConfigStep({
             data-testid="onboarding-config-save-error"
             role="alert"
           >
-            Couldn’t save model settings. {saveError} Try again.
+            Không thể lưu cài đặt mô hình. {saveError} Thử lại.
           </p>
         ) : null}
       </OnboardingFooter>

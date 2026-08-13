@@ -174,7 +174,7 @@ export function MachineOnboardingFlow({
 
   const replaceLostIdentity = React.useCallback(async () => {
     const confirmed = window.confirm(
-      "This will create a new identity and abandon your previous key. This cannot be undone. Continue?",
+      "Thao tác này sẽ tạo một danh tính mới và hủy khóa trước đó của bạn. Bạn không thể hoàn tác hành động này. Tiếp tục?",
     );
     if (!confirmed) return;
 
@@ -258,7 +258,7 @@ export function MachineOnboardingFlow({
       ? { disabled: isKeyImporting, onClick: backFromKeyImport }
       : page === "backup" && backupSubview !== "created"
         ? {
-            label: "Return to onboarding",
+            label: "Quay lại màn hình giới thiệu",
             onClick: returnToCreatedKey,
             testId: "backup-return-to-onboarding",
           }
@@ -317,8 +317,8 @@ export function MachineOnboardingFlow({
                 src="/landing/buzz-wordmark.png"
               />
               <p className="mt-2 max-w-[560px] text-center text-2xl font-normal leading-none text-foreground">
-                Your people, your agents, your projects —<br />
-                all in one place.
+                Mọi người, trợ lý AI, dự án của bạn —<br />
+                tất cả trong một nơi.
               </p>
               {error ? (
                 <p className="mt-4 text-sm text-destructive">{error}</p>
@@ -331,10 +331,10 @@ export function MachineOnboardingFlow({
                   type="button"
                 >
                   {isPending
-                    ? "Loading identity…"
+                    ? "Đang tải danh tính…"
                     : selectedPubkey
-                      ? "Continue setup"
-                      : "Create a new identity key"}
+                      ? "Tiếp tục cài đặt"
+                      : "Tạo khóa danh tính mới"}
                 </Button>
                 <Button
                   className={`${ONBOARDING_SECONDARY_CTA_CLASS} px-5`}
@@ -349,8 +349,8 @@ export function MachineOnboardingFlow({
                   variant="ghost"
                 >
                   {selectedPubkey
-                    ? "Use a different key instead"
-                    : "Use an existing key"}
+                    ? "Dùng khóa khác"
+                    : "Dùng khóa đã có"}
                 </Button>
               </div>
               <IdentityKeyHelpDialog />
@@ -373,16 +373,16 @@ export function MachineOnboardingFlow({
               >
                 <h1 className="text-title font-normal text-foreground">
                   {keyImportStage === "backup-password"
-                    ? "Unlock your account"
-                    : "Enter your private key"}
+                    ? "Mở khóa tài khoản của bạn"
+                    : "Nhập khóa riêng tư của bạn"}
                 </h1>
                 <div className="mt-5 max-w-[440px] text-sm leading-6 text-foreground/80">
                   {keyImportStage === "backup-password" ? (
-                    "Enter your backup password to restore your identity."
+                    "Nhập mật khẩu sao lưu của bạn để khôi phục danh tính."
                   ) : (
                     <p>
-                      Paste your private key to sign in to Buzz. You can also
-                      use a{" "}
+                      Dán khóa riêng tư của bạn để đăng nhập vào Buzz. Bạn cũng có thể
+                      sử dụng một{" "}
                       <button
                         className="rounded-sm font-medium underline decoration-foreground/40 underline-offset-4 transition-colors hover:decoration-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-60"
                         data-testid="nostr-import-file-button"
@@ -390,9 +390,9 @@ export function MachineOnboardingFlow({
                         onClick={() => setKeyImportDialog("backup")}
                         type="button"
                       >
-                        backup file
+                        tệp sao lưu
                       </button>
-                      , or{" "}
+                      , hoặc{" "}
                       <button
                         className="rounded-sm font-medium underline decoration-foreground/40 underline-offset-4 transition-colors hover:decoration-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-60"
                         data-testid="nostr-import-phone-link"
@@ -400,7 +400,7 @@ export function MachineOnboardingFlow({
                         onClick={() => setKeyImportDialog("phone")}
                         type="button"
                       >
-                        recover from your phone
+                        khôi phục từ điện thoại của bạn
                       </button>
                       .
                     </p>
@@ -427,7 +427,7 @@ export function MachineOnboardingFlow({
                       type="button"
                       variant="ghost"
                     >
-                      Start new identity
+                      Bắt đầu danh tính mới
                     </Button>
                   ) : null}
                 </div>
@@ -447,10 +447,10 @@ export function MachineOnboardingFlow({
                 >
                   <div className="mx-auto w-full max-w-[35rem] pb-6 pt-10 text-center max-sm:pb-4 max-sm:pt-6">
                     <DialogTitle className="text-balance px-8 text-3xl font-normal text-foreground">
-                      Restore from a backup file
+                      Khôi phục từ tệp sao lưu
                     </DialogTitle>
                     <DialogDescription className="mx-auto mt-4 max-w-[28rem] text-sm leading-6 text-foreground/80">
-                      Choose the encrypted backup file you saved from Buzz.
+                      Chọn tệp sao lưu được mã hóa mà bạn đã lưu từ Buzz.
                     </DialogDescription>
                     <NostrKeyImportForm
                       footerMode="inline"
@@ -479,14 +479,14 @@ export function MachineOnboardingFlow({
                   <div className="mx-auto flex w-full max-w-[35rem] flex-col items-center pb-6 pt-8 text-center max-sm:pb-4 max-sm:pt-4">
                     <DialogTitle className="text-balance px-8 text-3xl font-normal text-foreground">
                       {identityLost
-                        ? "Recover from your phone"
-                        : "Use your Buzz identity"}
+                        ? "Khôi phục từ điện thoại của bạn"
+                        : "Sử dụng danh tính Buzz của bạn"}
                     </DialogTitle>
                     <DialogDescription className="mt-4 text-sm leading-6 text-foreground/80">
                       {phoneRecoveryStep === "loading" ||
                       phoneRecoveryStep === "qr"
-                        ? "Scan this code with a signed-in Buzz phone."
-                        : "Confirm the code before sharing your identity."}
+                        ? "Quét mã này bằng điện thoại đã đăng nhập Buzz."
+                        : "Xác nhận mã trước khi chia sẻ danh tính của bạn."}
                     </DialogDescription>
                     <div className="mt-5">
                       <IdentityRecoveryPairing

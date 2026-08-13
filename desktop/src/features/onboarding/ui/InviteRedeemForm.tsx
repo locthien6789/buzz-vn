@@ -174,14 +174,14 @@ export function InviteRedeemForm({
           }
 
           if (policy.ageAttestationRequired && !ageConfirmed) {
-            setPolicyError("Confirm that you are at least 18 years old.");
+            setPolicyError("Xác nhận rằng bạn ít nhất 18 tuổi.");
             return;
           }
           if (
             (policy.termsMarkdown || policy.privacyMarkdown) &&
             !agreementConfirmed
           ) {
-            setPolicyError("Agree to the Terms of Service and Privacy Policy.");
+            setPolicyError("Đồng ý với Điều khoản Dịch vụ và Chính sách Quyền riêng tư.");
             return;
           }
 
@@ -223,14 +223,14 @@ export function InviteRedeemForm({
         }
 
         if (policy.ageAttestationRequired && !ageConfirmed) {
-          setPolicyError("Confirm that you are at least 18 years old.");
+          setPolicyError("Xác nhận rằng bạn ít nhất 18 tuổi.");
           return;
         }
         if (
           (policy.termsMarkdown || policy.privacyMarkdown) &&
           !agreementConfirmed
         ) {
-          setPolicyError("Agree to the Terms of Service and Privacy Policy.");
+          setPolicyError("Đồng ý với Điều khoản Dịch vụ và Chính sách Quyền riêng tư.");
           return;
         }
 
@@ -308,21 +308,21 @@ export function InviteRedeemForm({
     >
       {isRedeeming || isLoadingPolicy ? (
         <Spinner
-          aria-label={isRedeeming ? "Redeeming invite" : "Loading policy"}
+          aria-label={isRedeeming ? "Đang đổi lời mời" : "Đang tải chính sách"}
           className="h-4 w-4 border-2"
         />
       ) : isOnboardingSpotlight ? (
-        "Next"
+        "Tiếp tục"
       ) : isAddCommunity ? (
         joinPolicy ? (
-          "Accept and join"
+          "Chấp nhận và tham gia"
         ) : (
-          "Join community"
+          "Tham gia cộng đồng"
         )
       ) : joinPolicy ? (
-        "Accept and redeem invite"
+        "Chấp nhận và đổi lời mời"
       ) : (
-        "Redeem invite"
+        "Đổi lời mời"
       )}
     </Button>
   );
@@ -339,7 +339,7 @@ export function InviteRedeemForm({
       type="button"
       variant="ghost"
     >
-      {isOnboardingSpotlight ? "Back" : "Cancel"}
+      {isOnboardingSpotlight ? "Quay lại" : "Hủy"}
     </Button>
   );
 
@@ -367,7 +367,7 @@ export function InviteRedeemForm({
             style={SPOTLIGHT_OVERFLOW_FADE}
           >
             <label className="block w-full" htmlFor="invite-input">
-              <span className="sr-only">Invite link or code</span>
+              <span className="sr-only">Liên kết lời mời hoặc mã</span>
               <span className={ONBOARDING_KEY_ROW_CLASS}>
                 <input
                   autoCapitalize="none"
@@ -399,8 +399,8 @@ export function InviteRedeemForm({
             htmlFor="invite-input"
           >
             {isAddCommunity
-              ? "Community URL or invite link"
-              : "Invite link or code"}
+              ? "URL cộng đồng hoặc liên kết lời mời"
+              : "Liên kết lời mời hoặc mã"}
           </label>
           <Input
             autoComplete="off"
@@ -417,8 +417,8 @@ export function InviteRedeemForm({
             onChange={handleInviteInputChange}
             placeholder={
               isAddCommunity
-                ? "https://community.example.com or paste an invite link"
-                : "https://relay.example.com/invite/abc123 or paste a code"
+                ? "https://community.example.com hoặc dán liên kết lời mời"
+                : "https://relay.example.com/invite/abc123 hoặc dán mã"
             }
             spellCheck={false}
             type="text"
@@ -437,7 +437,7 @@ export function InviteRedeemForm({
           )}
           data-testid="invalid-invite-tip"
         >
-          Please enter a valid invite link or community URL
+          Vui lòng nhập một liên kết lời mời hoặc URL cộng đồng hợp lệ
         </p>
       ) : null}
 
@@ -452,7 +452,7 @@ export function InviteRedeemForm({
             className="text-sm font-medium text-foreground"
             htmlFor="invite-relay-url"
           >
-            Relay URL
+            URL Relay
           </label>
           <Input
             className="h-10 bg-background"

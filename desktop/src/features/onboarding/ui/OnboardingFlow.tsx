@@ -270,7 +270,7 @@ export function OnboardingFlow({
         if (membershipStatus === "error") {
           setMembershipError({
             kind: "error",
-            message: "Server error — try again",
+            message: "Lỗi máy chủ — thử lại",
           });
           return;
         }
@@ -414,7 +414,7 @@ export function OnboardingFlow({
   // RelaunchRequiredScreen. No navigation needed here.
   const handleLostModeBack = React.useCallback(async () => {
     const confirmed = window.confirm(
-      "This will create a new identity and abandon your previous key. This cannot be undone. Continue?",
+      "Thao tác này sẽ tạo một danh tính mới và hủy khóa trước đó của bạn. Bạn không thể hoàn tác hành động này. Tiếp tục?",
     );
     if (!confirmed) {
       return;
@@ -426,7 +426,7 @@ export function OnboardingFlow({
       setPersistError(
         error instanceof Error
           ? error.message
-          : "Failed to create a new identity. Please try again.",
+          : "Không thể tạo danh tính mới. Vui lòng thử lại.",
       );
     }
   }, [queryClient]);
@@ -457,10 +457,10 @@ export function OnboardingFlow({
         ? {
             label:
               keyImportStage === "backup-password"
-                ? "Back"
+                ? "Quay lại"
                 : identityLost
-                  ? "Start new identity"
-                  : "Back",
+                  ? "Bắt đầu danh tính mới"
+                  : "Quay lại",
             disabled: isKeyImporting,
             onClick: handleKeyImportBack,
           }
@@ -518,10 +518,10 @@ export function OnboardingFlow({
                 {membershipError.kind === "unreachable" ? (
                   <>
                     <p className="font-medium text-destructive">
-                      Can't reach this relay
+                      Không thể kết nối tới relay này
                     </p>
                     <p className="mt-1 text-muted-foreground">
-                      Check your connection or change your community.
+                      Kiểm tra kết nối hoặc thay đổi cộng đồng của bạn.
                     </p>
                     <Button
                       className="mt-3"
@@ -529,16 +529,16 @@ export function OnboardingFlow({
                       size="sm"
                       variant="outline"
                     >
-                      Change community
+                      Thay đổi cộng đồng
                     </Button>
                   </>
                 ) : (
                   <>
                     <p className="font-medium text-destructive">
-                      {membershipError.message ?? "Something went wrong"}
+                      {membershipError.message ?? "Đã có lỗi xảy ra"}
                     </p>
                     <p className="mt-1 text-muted-foreground">
-                      The relay returned an error. Try again.
+                      Relay đã trả về một lỗi. Hãy thử lại.
                     </p>
                   </>
                 )}
@@ -573,24 +573,24 @@ export function OnboardingFlow({
                   {identityLost ? (
                     <>
                       <h1 className="text-title font-normal text-foreground">
-                        Re-import your key
+                        Nhập lại khóa của bạn
                       </h1>
                       <p className="mt-5 text-sm leading-6 text-muted-foreground">
-                        Your identity is no longer in the system keyring.
-                        Re-import your nsec to restore it — Buzz will restart to
-                        finish recovery. Or go back to start a new identity with
-                        a fresh key.
+                        Danh tính của bạn không còn trong chuỗi khóa hệ thống.
+                        Nhập lại nsec của bạn để khôi phục nó — Buzz sẽ khởi động lại để
+                        hoàn tất quá trình khôi phục. Hoặc quay lại để bắt đầu danh tính mới với
+                        một khóa mới.
                       </p>
                     </>
                   ) : (
                     <>
                       <h1 className="text-title font-normal text-foreground">
-                        Use your existing key
+                        Dùng khóa đã có của bạn
                       </h1>
                       <p className="mt-5 text-sm leading-6 text-muted-foreground">
-                        Import your Nostr private key to use that identity with
-                        Buzz. If this key already has a profile on the relay,
-                        your name and avatar are restored automatically.
+                        Nhập khóa Nostr riêng tư của bạn để sử dụng danh tính đó với
+                        Buzz. Nếu khóa này đã có một hồ sơ trên relay,
+                        tên và ảnh đại diện của bạn sẽ tự động được khôi phục.
                       </p>
                     </>
                   )}
