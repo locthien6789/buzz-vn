@@ -32,11 +32,16 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Build Tauri App
-        working-directory: desktop
-        run: pnpm run tauri build
+        shell: bash
+        env:
+          TARGET: x86_64-pc-windows-msvc
+        run: |
+          rustup target add $TARGET
+          cd desktop
+          pnpm tauri build --runner cargo --target $TARGET
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
           name: Buzz_VN_Setup
-          path: desktop/src-tauri/target/release/bundle/nsis/*.exe
+          path: desktop/src-tauri/target/x86_64-pc-windows-msvc/release/bundle/nsis/*.exe
